@@ -1,14 +1,12 @@
 import { useState } from "react";
-import { MovieData } from "../../models/movie";
 
-import MovieList from "../MovieList";
 import Button from "../shared/Button";
 
 type ListBoxProps = {
-  movies: MovieData[];
+  children: React.ReactNode;
 };
 
-const ListBox = ({ movies }: ListBoxProps) => {
+const ListBox = ({ children }: ListBoxProps) => {
   const [isOpen1, setIsOpen1] = useState(true);
 
   const handleOpen1 = () => {
@@ -18,7 +16,7 @@ const ListBox = ({ movies }: ListBoxProps) => {
   return (
     <div className="box">
       <Button onClick={handleOpen1}>{isOpen1 ? "–" : "+"}</Button>
-      {isOpen1 && <MovieList movies={movies} />}
+      {isOpen1 && children}
     </div>
   );
 };

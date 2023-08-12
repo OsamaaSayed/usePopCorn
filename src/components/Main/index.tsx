@@ -1,19 +1,9 @@
-import { MovieData } from "../../models/movie";
-
-import ListBox from "../ListBox";
-import WatchedBox from "../WatchedBox";
-
 type MainProps = {
-  movies: MovieData[];
+  children: React.ReactNode;
 };
 
-const Main = ({ movies }: MainProps) => {
-  return (
-    <main className="main">
-      <ListBox movies={movies} />
-      <WatchedBox />
-    </main>
-  );
+const Main = ({ children }: MainProps) => {
+  return <main className="main">{children}</main>;
 };
 
 export default Main;

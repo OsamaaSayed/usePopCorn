@@ -3,6 +3,12 @@ import { MovieData } from "../../models/movie";
 
 import Navbar from "../../components/Navbar";
 import Main from "../../components/Main";
+import NumResults from "../../components/NumResults";
+import SearchInput from "../../components/shared/SearchInput";
+import Logo from "../../components/Logo";
+import ListBox from "../../components/ListBox";
+import WatchedBox from "../../components/WatchedBox";
+import MovieList from "../../components/MovieList";
 
 const tempMovieData = [
   {
@@ -38,13 +44,18 @@ const Home = () => {
 
   return (
     <>
-      <Navbar
-        query={query}
-        movies={movies}
-        handleInputQuery={handleInputQuery}
-      />
+      <Navbar>
+        <Logo />
+        <SearchInput query={query} handleInputQuery={handleInputQuery} />
+        <NumResults movies={movies} />
+      </Navbar>
 
-      <Main movies={movies} />
+      <Main>
+        <ListBox>
+          <MovieList movies={movies} />
+        </ListBox>
+        <WatchedBox />
+      </Main>
     </>
   );
 };

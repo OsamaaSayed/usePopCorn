@@ -1,23 +1,9 @@
-import { MovieData } from "../../models/movie";
-
-import Logo from "../Logo";
-import SearchInput from "../shared/SearchInput";
-import NumResults from "../NumResults";
-
 type NavbarProps = {
-  query: string;
-  movies: MovieData[];
-  handleInputQuery: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  children: React.ReactNode;
 };
 
-const Navbar = ({ query, movies, handleInputQuery }: NavbarProps) => {
-  return (
-    <nav className="nav-bar">
-      <Logo />
-      <SearchInput query={query} handleInputQuery={handleInputQuery} />
-      <NumResults movies={movies} />
-    </nav>
-  );
+const Navbar = ({ children }: NavbarProps) => {
+  return <nav className="nav-bar">{children}</nav>;
 };
 
 export default Navbar;
