@@ -30,6 +30,14 @@ body {
 }
 
 /* ******* */
+.box::-webkit-scrollbar,
+.list::-webkit-scrollbar {
+  display: none;
+  scroll-behavior: smooth;
+}
+
+/* ****** */
+
 
 .nav-bar {
   display: grid;
@@ -54,7 +62,7 @@ body {
   max-width: 42rem;
   background-color: var(--color-background-500);
   border-radius: 0.9rem;
-  overflow: scroll;
+  overflow: auto;
   position: relative;
 }
 
@@ -138,7 +146,7 @@ body {
 .list {
   list-style: none;
   padding: 0.8rem 0;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .list-watched {
