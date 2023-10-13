@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { MovieData, WatchedMovieData } from '../../models/movie';
 
 import Navbar from '../../components/Navbar';
@@ -73,11 +73,12 @@ const Home = () => {
     setQuery(e.target.value);
   };
 
-  async function fetchMovies() {
+  const memoizedFetchMovies = useCallback(async () => {
     try {
       setIsLoading(true);
+      setError('');
       const res = await fetch(
-        `http://www.omdbapi.com/?s=interstellar&apikey=${KEY}`,
+        `http://www.omdbapi.com/?s=${query}&apikey=${KEY}`,
       );
 
       //! res.ok is always true , even if there was an error in the request
@@ -89,16 +90,21 @@ const Home = () => {
 
       setMovies(data?.Search);
     } catch (err) {
-      console.log('🚀 ~ file: index.tsx:76 ~ fetchMovies ~ err:', err);
       setError(err as string);
     } finally {
       setIsLoading(false);
     }
-  }
+  }, [query]);
 
   useEffect(() => {
-    fetchMovies();
-  }, []);
+    if (!query.length) {
+      setMovies([]);
+      setError('');
+      return;
+    }
+
+    memoizedFetchMovies();
+  }, [memoizedFetchMovies, query.length]);
 
   return (
     <>
