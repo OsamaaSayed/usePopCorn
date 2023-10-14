@@ -1,6 +1,6 @@
-import { IMovieData } from '../../models/movie';
-
 import Movie from '../Movie';
+
+import { IMovieData } from '../../models/movie';
 
 type MovieListProps = {
   movies: IMovieData[];
@@ -14,7 +14,7 @@ const MovieList = ({ movies, onSelectMovie }: MovieListProps) => {
         <Movie
           key={movie.imdbID}
           movie={movie}
-          onSelectMovie = {onSelectMovie}
+          onSelectMovie={onSelectMovie}
         />
       ))}
     </ul>

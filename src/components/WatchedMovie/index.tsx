@@ -1,12 +1,15 @@
-import { IWatchedMovieData } from "../../models/movie";
+import { IWatchedMovieData } from '../../models/movie';
 
 type WatchedMovieProps = {
   movie: IWatchedMovieData;
 };
 const WatchedMovie = ({ movie }: WatchedMovieProps) => {
   return (
-    <li >
-      <img src={movie.Poster} alt={`${movie.Title} poster`} />
+    <li>
+      <img
+        src={movie.Poster}
+        alt={`${movie.Title} poster`}
+      />
       <h3>{movie.Title}</h3>
       <div>
         <p>

@@ -1,6 +1,6 @@
 type ErrorMessageProps = {
   message: string;
-  icon:string;
+  icon: string;
 };
 
 const ErrorMessage = ({ message, icon }: ErrorMessageProps) => {

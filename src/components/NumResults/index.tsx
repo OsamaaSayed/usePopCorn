@@ -1,12 +1,12 @@
-import { MovieData } from "../../models/movie";
+import { IMovieData } from '../../models/movie';
 
 type NumResultsProps = {
-  movies: MovieData[];
+  movies: IMovieData[];
 };
 
 const NumResults = ({ movies }: NumResultsProps) => {
   return (
-    <p className="num-results">
+    <p className='num-results'>
       Found <strong>{movies?.length}</strong> results
     </p>
   );

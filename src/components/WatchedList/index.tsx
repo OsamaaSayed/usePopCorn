@@ -1,6 +1,6 @@
-import { IWatchedMovieData } from "../../models/movie";
+import WatchedMovie from '../WatchedMovie';
 
-import WatchedMovie from "../WatchedMovie";
+import { IWatchedMovieData } from '../../models/movie';
 
 type WatchedMovieListProps = {
   watched: IWatchedMovieData[];
@@ -8,9 +8,12 @@ type WatchedMovieListProps = {
 
 const WatchedMovieList = ({ watched }: WatchedMovieListProps) => {
   return (
-    <ul className="list">
-      {watched.map((movie) => (
-        <WatchedMovie key={movie.imdbID} movie={movie} />
+    <ul className='list'>
+      {watched?.map((movie) => (
+        <WatchedMovie
+          key={movie.imdbID}
+          movie={movie}
+        />
       ))}
     </ul>
   );

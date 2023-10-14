@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Navbar from '../../components/Navbar';
 import Main from '../../components/Main';
@@ -37,40 +37,40 @@ const Home = () => {
     setSelectedMovieId(null);
   };
 
-  const memoizedFetchMovies = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      setError('');
-      const res = await fetch(
-        `http://www.omdbapi.com/?s=${query}&apikey=${
-          import.meta.env.VITE_API_KEY
-        }`,
-      );
-
-      //! res.ok is always true , even if there was an error in the request
-      if (!res.ok)
-        throw new Error('Something went wrong with fetching movies!');
-
-      const data = await res.json();
-      if (data?.Response === 'False') throw new Error(data?.Error);
-
-      setMovies(data?.Search);
-    } catch (err) {
-      setError(err as string);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [query]);
-
   useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        setIsLoading(true);
+        setError('');
+        const res = await fetch(
+          `http://www.omdbapi.com/?s=${query}&apikey=${
+            import.meta.env.VITE_API_KEY
+          }`,
+        );
+
+        //! res.ok is always true , even if there was an error in the request
+        if (!res.ok)
+          throw new Error('Something went wrong with fetching movies!');
+
+        const data = await res.json();
+        if (data?.Response === 'False') throw new Error(data?.Error);
+
+        setMovies(data?.Search);
+      } catch (err) {
+        setError(err as string);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     if (!query.length) {
       setMovies([]);
       setError('');
       return;
     }
 
-    memoizedFetchMovies();
-  }, [memoizedFetchMovies, query.length]);
+    fetchMovies();
+  }, [query]);
 
   return (
     <>

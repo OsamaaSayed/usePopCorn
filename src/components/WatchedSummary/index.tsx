@@ -1,4 +1,4 @@
-import { IWatchedMovieData } from "../../models/movie";
+import { IWatchedMovieData } from '../../models/movie';
 
 type WatchedsummaryProps = {
   watched: IWatchedMovieData[];
@@ -13,7 +13,7 @@ const WatchedSummary = ({ watched }: WatchedsummaryProps) => {
   const avgRuntime = average(watched.map((movie) => movie.runtime));
 
   return (
-    <div className="summary">
+    <div className='summary'>
       <h2>Movies you watched</h2>
       <div>
         <p>
