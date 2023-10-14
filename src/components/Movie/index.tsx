@@ -1,21 +1,22 @@
-import { MovieData } from '../../models/movie';
+import { IMovieData } from '../../models/movie';
 
 type MovieProps = {
-  movie: MovieData;
+  movie: IMovieData;
+  onSelectMovie: (movieId: string) => void;
 };
 
-const Movie = ({ movie }: MovieProps) => {
+const Movie = ({ movie, onSelectMovie }: MovieProps) => {
   return (
-    <li>
+    <li onClick={() => onSelectMovie(movie?.imdbID)}>
       <img
-        src={movie.Poster}
-        alt={`${movie.Title} poster`}
+        src={movie?.Poster}
+        alt={`${movie?.Title} poster`}
       />
-      <h3>{movie.Title}</h3>
+      <h3>{movie?.Title}</h3>
       <div>
         <p>
           <span>📆</span>
-          <span>{movie.Year}</span>
+          <span>{movie?.Year}</span>
         </p>
       </div>
     </li>

@@ -1,14 +1,10 @@
 type ErrorMessageProps = {
   message: string;
+  icon:string;
 };
 
-const ErrorMessage = ({ message }: ErrorMessageProps) => {
-  return (
-    <p className="error">
-      <span>❗</span>
-      {`${message}`}
-    </p>
-  );
+const ErrorMessage = ({ message, icon }: ErrorMessageProps) => {
+  return <p className='error'>{`${icon} ${message}`}</p>;
 };
 
 export default ErrorMessage;

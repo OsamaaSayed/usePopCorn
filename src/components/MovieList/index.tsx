@@ -1,16 +1,21 @@
-import { MovieData } from "../../models/movie";
+import { IMovieData } from '../../models/movie';
 
-import Movie from "../Movie";
+import Movie from '../Movie';
 
 type MovieListProps = {
-  movies: MovieData[];
+  movies: IMovieData[];
+  onSelectMovie: (movieId: string) => void;
 };
 
-const MovieList = ({ movies }: MovieListProps) => {
+const MovieList = ({ movies, onSelectMovie }: MovieListProps) => {
   return (
-    <ul className="list">
+    <ul className='list list-movies'>
       {movies?.map((movie) => (
-        <Movie key={movie.imdbID} movie={movie} />
+        <Movie
+          key={movie.imdbID}
+          movie={movie}
+          onSelectMovie = {onSelectMovie}
+        />
       ))}
     </ul>
   );

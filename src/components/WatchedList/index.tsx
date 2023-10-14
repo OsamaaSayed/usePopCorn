@@ -1,9 +1,9 @@
-import { WatchedMovieData } from "../../models/movie";
+import { IWatchedMovieData } from "../../models/movie";
 
 import WatchedMovie from "../WatchedMovie";
 
 type WatchedMovieListProps = {
-  watched: WatchedMovieData[];
+  watched: IWatchedMovieData[];
 };
 
 const WatchedMovieList = ({ watched }: WatchedMovieListProps) => {
