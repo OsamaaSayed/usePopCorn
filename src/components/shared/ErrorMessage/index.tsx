@@ -1,5 +1,5 @@
 type ErrorMessageProps = {
-  message: string;
+  message: string | Error;
   icon: string;
 };
 

@@ -65,6 +65,14 @@ const MovieDetails = ({
     getMovieDetails();
   }, [selectedMovieId]);
 
+  useEffect(() => {
+    document.title = `Movie | ${movie?.Title}`;
+
+    return () => {
+      document.title = 'usePopCorn';
+    };
+  }, [movie?.Title]);
+
   return (
     <div className='details'>
       {isLoading ? (
