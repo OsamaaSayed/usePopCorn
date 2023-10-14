@@ -1,19 +1,45 @@
 import { useState, useEffect } from 'react';
 
-
 import StarRating from '../shared/StarRating';
 import Loader from '../shared/Loader';
 
-import { IMovieDetails } from '../../models/movie';
+import { IMovieDetails, IWatchedMovieData } from '../../models/movie';
 
 type MovieDetailsProps = {
   selectedMovieId: string;
+  watched: IWatchedMovieData[];
   onCloseMovie: () => void;
+  onAddMovie: (newMovie: IWatchedMovieData) => void;
 };
 
-const MovieDetails = ({ onCloseMovie, selectedMovieId }: MovieDetailsProps) => {
-  const [movie, setMovie] = useState<IMovieDetails | null>(null);
+const MovieDetails = ({
+  selectedMovieId,
+  watched,
+  onCloseMovie,
+  onAddMovie,
+}: MovieDetailsProps) => {
+  const [movie, setMovie] = useState({} as IMovieDetails);
   const [isLoading, setIsLoading] = useState(false);
+  const [userRating, setUserRating] = useState(0);
+
+  const watchedMovie = watched.find(
+    (element) => element.imdbID === selectedMovieId,
+  );
+
+  const handleAdd = () => {
+    const newMovie: IWatchedMovieData = {
+      imdbID: selectedMovieId,
+      Title: movie?.Title,
+      Poster: movie?.Poster,
+      Year: movie?.Year,
+      imdbRating: Number(movie?.imdbRating),
+      runtime: Number(movie?.Runtime.split(' ').at(0)),
+      userRating: userRating,
+    };
+
+    onAddMovie(newMovie);
+    onCloseMovie();
+  };
 
   useEffect(() => {
     const getMovieDetails = async () => {
@@ -68,16 +94,34 @@ const MovieDetails = ({ onCloseMovie, selectedMovieId }: MovieDetailsProps) => {
                 <span>⭐</span>
                 {movie?.imdbRating} IMDb rating
               </p>
-              <p></p>
             </div>
           </header>
 
           <section>
             <div className='rating'>
-              <StarRating
-                maxRating={10}
-                size={24}
-              />
+              {!watchedMovie ? (
+                <>
+                  <StarRating
+                    maxRating={10}
+                    size={24}
+                    onSetRating={(rate) => setUserRating(rate)}
+                  />
+
+                  {userRating > 0 && (
+                    <button
+                      className='btn-add'
+                      onClick={handleAdd}
+                    >
+                      + Add to list
+                    </button>
+                  )}
+                </>
+              ) : (
+                <p>
+                  You rated this movie with {watchedMovie?.userRating}
+                  <span>🌟</span>
+                </p>
+              )}
             </div>
             <p>
               <em>{movie?.Plot}</em>
