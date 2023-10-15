@@ -23,7 +23,7 @@ const Home = () => {
   const [selectedMovieId, setSelectedMovieId] = useState<null | string>(null);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | Error>('');
+  const [error, setError] = useState('');
 
   const handleInputQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -73,8 +73,9 @@ const Home = () => {
         return () => {
           controller.abort();
         };
-      } catch (err) {
-        if (err instanceof Error && err.name !== 'AbortError') setError(err);
+      } catch (err: unknown) {
+        if (err instanceof Error && err.name !== 'AbortError')
+          setError((err as Error).message);
       } finally {
         setIsLoading(false);
       }
