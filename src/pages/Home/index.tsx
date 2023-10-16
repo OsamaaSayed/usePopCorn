@@ -87,6 +87,7 @@ const Home = () => {
       return;
     }
 
+    handleCloseMovie();
     fetchMovies();
 
     return () => {
