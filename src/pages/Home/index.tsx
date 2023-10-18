@@ -28,10 +28,6 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleInputQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-  };
-
   const handleSelectedMovieId = (movieId: string) => {
     setSelectedMovieId((prevId) => (prevId === movieId ? null : movieId));
   };
@@ -108,7 +104,8 @@ const Home = () => {
         <Logo />
         <SearchInput
           query={query}
-          handleInputQuery={handleInputQuery}
+          setQuery={setQuery}
+          onCloseMovie={handleCloseMovie}
         />
         <NumResults movies={movies} />
       </Navbar>
