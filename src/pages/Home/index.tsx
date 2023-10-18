@@ -17,7 +17,10 @@ import { IMovieData, IWatchedMovieData } from '../../models/movie';
 
 const Home = () => {
   const [movies, setMovies] = useState<IMovieData[]>([]);
-  const [watched, setWatched] = useState<IWatchedMovieData[]>([]);
+  const [watched, setWatched] = useState<IWatchedMovieData[]>(() => {
+    const storedWatchedList = localStorage.getItem('watchedList')!;
+    return JSON.parse(storedWatchedList) || [];
+  });
 
   const [query, setQuery] = useState('');
   const [selectedMovieId, setSelectedMovieId] = useState<null | string>(null);
@@ -94,6 +97,10 @@ const Home = () => {
       controller.abort();
     };
   }, [query]);
+
+  useEffect(() => {
+    localStorage.setItem('watchedList', JSON.stringify(watched));
+  }, [watched]);
 
   return (
     <>
