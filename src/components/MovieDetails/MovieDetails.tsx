@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import StarRating from '../shared/StarRating';
 import Loader from '../shared/Loader';
@@ -22,6 +22,8 @@ const MovieDetails = ({
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState(0);
 
+  const countRef = useRef(0);
+
   const watchedMovie = watched.find(
     (element) => element.imdbID === selectedMovieId,
   );
@@ -35,6 +37,7 @@ const MovieDetails = ({
       imdbRating: Number(movie?.imdbRating),
       runtime: Number(movie?.Runtime.split(' ').at(0)),
       userRating: userRating,
+      ratingDecisionsCounter: countRef.current,
     };
 
     onAddMovie(newMovie);
@@ -89,6 +92,10 @@ const MovieDetails = ({
       );
     };
   }, [onCloseMovie]);
+
+  useEffect(() => {
+    if (userRating) countRef.current++;
+  }, [userRating]);
 
   return (
     <div className='details'>
