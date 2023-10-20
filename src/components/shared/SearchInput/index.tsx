@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
+import { useKey } from '../../../hooks/useKey';
 
 type SearchInputProps = {
   query: string;
@@ -9,26 +10,12 @@ type SearchInputProps = {
 const SearchInput = ({ query, setQuery, onCloseMovie }: SearchInputProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    const callback = (e: React.KeyboardEvent) => {
-      if (document.activeElement === inputRef.current) return;
-
-      if (e.code === 'Enter') {
-        inputRef.current?.focus();
-        setQuery('');
-        onCloseMovie();
-      }
-    };
-
-    document.addEventListener('keydown', callback as unknown as EventListener);
-
-    return () => {
-      document.removeEventListener(
-        'keydown',
-        callback as unknown as EventListener,
-      );
-    };
-  }, [setQuery, onCloseMovie]);
+  useKey('Enter', () => {
+    if (document.activeElement === inputRef.current) return;
+    inputRef.current?.focus();
+    setQuery('');
+    onCloseMovie();
+  });
 
   return (
     <input

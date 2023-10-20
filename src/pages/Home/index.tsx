@@ -14,9 +14,9 @@ import ErrorMessage from '../../components/shared/ErrorMessage';
 import MovieDetails from '../../components/MovieDetails/MovieDetails';
 
 import { useMovies } from '../../hooks/useMovies';
+import { useLocalStorageState } from '../../hooks/useLocalStorageState';
 
 import { IWatchedMovieData } from '../../models/movie';
-import { useLocalStorageState } from '../../hooks/useLocalStorageState';
 
 const Home = () => {
   const [query, setQuery] = useState('');
@@ -26,11 +26,11 @@ const Home = () => {
     setSelectedMovieId(null);
   }, []);
 
+  const { movies, isLoading, error } = useMovies(query, handleCloseMovie);
   const [watched, setWatched] = useLocalStorageState<IWatchedMovieData[]>(
     [],
     'watchedList',
   );
-  const { movies, isLoading, error } = useMovies(query, handleCloseMovie);
 
   const handleSelectedMovieId = (movieId: string) => {
     setSelectedMovieId((prevId) => (prevId === movieId ? null : movieId));

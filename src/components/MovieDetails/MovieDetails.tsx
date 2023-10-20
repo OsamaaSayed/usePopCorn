@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from 'react';
 import StarRating from '../shared/StarRating';
 import Loader from '../shared/Loader';
 
+import { useKey } from '../../hooks/useKey';
+
 import { IMovieDetails, IWatchedMovieData } from '../../models/movie';
 
 type MovieDetailsProps = {
@@ -76,22 +78,7 @@ const MovieDetails = ({
     };
   }, [movie?.Title]);
 
-  useEffect(() => {
-    const callback = (e: React.KeyboardEvent) => {
-      if (e.code === 'Escape') {
-        onCloseMovie();
-      }
-    };
-
-    document.addEventListener('keydown', callback as unknown as EventListener);
-
-    return () => {
-      document.removeEventListener(
-        'keydown',
-        callback as unknown as EventListener,
-      );
-    };
-  }, [onCloseMovie]);
+  useKey('Escape', onCloseMovie);
 
   useEffect(() => {
     if (userRating) countRef.current++;
